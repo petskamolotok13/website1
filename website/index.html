@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корпоративный портал</title>
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 400;
+            padding-top: 70px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #667eea;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header_nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header_list {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+        }
+
+        .header_list li {
+            position: relative;
+        }
+
+        .header_list > li > a {
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: block;
+        }
+
+        .header_list > li > a:hover {
+            background-color: #f5f7fa;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            padding: 10px 0;
+        }
+
+        .header_list li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f5f7fa;
+            color: #667eea;
+        }
+
+        .dropdown-fixed {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        .workspace {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            min-height: 80vh;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .search-container.active {
+            display: block;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #5a6fd8;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .content-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table th {
+            background: #f5f7fa;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #eaeaea;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .data-table th:hover {
+            background: #eaeef2;
+        }
+
+        .data-table th::after {
+            content: "↕";
+            position: absolute;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+
+        .data-table th.sorted-asc::after {
+            content: "↑";
+            color: #667eea;
+        }
+
+        .data-table th.sorted-desc::after {
+            content: "↓";
+            color: #667eea;
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        @media (max-width: 768px) {
+            .header_list {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .header_list > li > a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .dropdown {
+                min-width: 180px;
+            }
+            
+            body {
+                padding-top: 120px;
+            }
+            
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .search-result-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="header_nav">
+            <ul class="header_list">
+                <li>
+                    <a href="#!" class="nav-link">Контакты</a>
+                    <ul class="dropdown">
+                        <li><a href="#!">Отдел продаж: +7 (999) 123-45-67</a></li>
+                        <li><a href="#!">Техподдержка: +7 (999) 123-45-68</a></li>
+                        <li><a href="#!">Бухгалтерия: +7 (999) 123-45-69</a></li>
+                        <li><a href="#!">Email: info@company.ru</a></li>
+                        <li><a href="#!">Адрес: г. Москва, ул. Примерная, 15</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link">Новая сделка</a>
+                    <ul class="dropdown">
+                        <li><a href="#!" data-action="new-deal">Создать новую сделку</a></li>
+                        <li><a href="#!" data-action="new-template">Создать шаблон сделки</a></li>
+                        <li><a href="#!" data-action="template-deal">Создать сделку по шаблону</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link" id="archive-toggle">Архив сделок</a>
+                    <ul class="dropdown" id="archive-dropdown">
+                        <li><a href="#!" data-action="price-search">Поиск по цене</a></li>
+                        <li><a href="#!" data-action="product-search">Поиск по названию товара</a></li>
+                        <li><a href="#!" data-action="date-search">Поиск по дате</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link">Список товаров на складе</a>
+                    <ul class="dropdown">
+                        <li><a href="#!" data-action="stock-product">Поиск по названию товара</a></li>
+                        <li><a href="#!" data-action="stock-category">Поиск по категории</a></li>
+                        <li><a href="#!" data-action="stock-quantity">Поиск по количеству</a></li>
+                        <li><a href="#!" data-action="stock-all">Показать все товары</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link">Финансовая аналитика</a>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link">Список клиентов</a>
+                    <ul class="dropdown">
+                        <li><a href="#!" data-action="client-name">Поиск по имени клиента</a></li>
+                        <li><a href="#!" data-action="client-company">Поиск по компании</a></li>
+                        <li><a href="#!" data-action="client-region">Поиск по региону</a></li>
+                        <li><a href="#!" data-action="client-all">Показать всех клиентов</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- РАБОЧАЯ ОБЛАСТЬ -->
+    <main class="workspace">
+        <!-- Контейнер для поиска (изначально скрыт) -->
+        <div class="search-container" id="search-container">
+            <h2 class="search-title" id="search-title">Поиск</h2>
+            <form class="search-form" id="search-form">
+                <input type="text" class="search-input" id="search-input" placeholder="Введите запрос...">
+                <button type="submit" class="search-button">Найти</button>
+            </form>
+        </div>
+
+        <!-- Основной контент рабочей области -->
+        <div class="content-section">
+            <h2 class="content-title">Рабочая область</h2>
+            <div class="content-placeholder" id="content-placeholder">
+                Выберите действие в меню выше, чтобы начать работу
+            </div>
+            <div id="dynamic-content"></div>
+        </div>
+    </main>
+
+    <script>
+        // Данные для примера
+        const dealsData = [
+            { id: 1, name: 'Поставка оргтехники', client: 'ООО "Ромашка"', amount: 150000, date: '15.12.2023', status: 'Завершена' },
+            { id: 2, name: 'Закупка канцтоваров', client: 'ИП Сидоров', amount: 45000, date: '10.12.2023', status: 'В процессе' },
+            { id: 3, name: 'Оборудование для офиса', client: 'ОАО "Луч"', amount: 320000, date: '05.12.2023', status: 'Завершена' },
+            { id: 4, name: 'IT-инфраструктура', client: 'ЗАО "ТехноПрофи"', amount: 580000, date: '28.11.2023', status: 'Завершена' },
+            { id: 5, name: 'Мебель для переговорной', client: 'ООО "СтройГрад"', amount: 120000, date: '20.11.2023', status: 'Отменена' }
+        ];
+
+        const stockData = [
+            { id: 1, name: 'Ноутбук Dell XPS 13', category: 'Электроника', quantity: 15, price: 89900 },
+            { id: 2, name: 'Монитор Samsung 27"', category: 'Электроника', quantity: 22, price: 25400 },
+            { id: 3, name: 'Офисное кресло', category: 'Мебель', quantity: 8, price: 12400 },
+            { id: 4, name: 'Принтер HP LaserJet', category: 'Оргтехника', quantity: 12, price: 18900 },
+            { id: 5, name: 'Канцелярский набор', category: 'Канцтовары', quantity: 45, price: 1200 },
+            { id: 6, name: 'Смартфон Samsung Galaxy', category: 'Электроника', quantity: 18, price: 54900 },
+            { id: 7, name: 'Настольная лампа', category: 'Освещение', quantity: 25, price: 3200 }
+        ];
+
+        const clientsData = [
+            { id: 1, name: 'Иван Иванов', company: 'ООО "Ромашка"', phone: '+7 (999) 123-45-67', region: 'Москва' },
+            { id: 2, name: 'Петр Сидоров', company: 'ИП Сидоров', phone: '+7 (999) 123-45-68', region: 'Санкт-Петербург' },
+            { id: 3, name: 'Анна Петрова', company: 'ОАО "Луч"', phone: '+7 (999) 123-45-69', region: 'Москва' },
+            { id: 4, name: 'Сергей Козлов', company: 'ЗАО "ТехноПрофи"', phone: '+7 (999) 123-45-70', region: 'Новосибирск' },
+            { id: 5, name: 'Мария Смирнова', company: 'ООО "СтройГрад"', phone: '+7 (999) 123-45-71', region: 'Екатеринбург' },
+            { id: 6, name: 'Алексей Волков', company: 'ООО "ТоргСервис"', phone: '+7 (999) 123-45-72', region: 'Казань' }
+        ];
+
+        const templatesData = [
+            { id: 1, name: 'Стандартная поставка', description: 'Шаблон для регулярных поставок', items: ['Договор поставки', 'Счет на оплату', 'Акт выполненных работ'] },
+            { id: 2, name: 'Срочный заказ', description: 'Шаблон для срочных заказов', items: ['Упрощенный договор', 'Счет на оплату', 'Акт приема-передачи'] },
+            { id: 3, name: 'Крупная сделка', description: 'Шаблон для сделок свыше 500 тыс. руб.', items: ['Расширенный договор', 'Дополнительное соглашение', 'График платежей'] }
+        ];
+
+        // Глобальные переменные
+        let dynamicContent, contentPlaceholder, searchContainer, searchTitle, searchInput;
+        let currentSearchType = '';
+
+        // Функция для выполнения поиска
+        function performSearch(query, searchType) {
+            let results = [];
+            let title = 'Результаты поиска';
+            
+            // В зависимости от типа поиска, ищем в разных массивах данных
+            switch(searchType) {
+                case 'client-name':
+                case 'client-company':
+                case 'client-region':
+                    results = clientsData.filter(client => 
+                        Object.values(client).some(value => 
+                            value.toString().toLowerCase().includes(query.toLowerCase())
+                        )
+                    );
+                    title = 'Результаты поиска клиентов';
+                    break;
+                    
+                case 'stock-product':
+                case 'stock-category':
+                case 'stock-quantity':
+                    results = stockData.filter(item => 
+                        Object.values(item).some(value => 
+                            value.toString().toLowerCase().includes(query.toLowerCase())
+                        )
+                    );
+                    title = 'Результаты поиска товаров';
+                    break;
+                    
+                case 'price-search':
+                case 'product-search':
+                case 'date-search':
+                    results = dealsData.filter(deal => 
+                        Object.values(deal).some(value => 
+                            value.toString().toLowerCase().includes(query.toLowerCase())
+                        )
+                    );
+                    title = 'Результаты поиска сделок';
+                    break;
+                    
+                default:
+                    // Если тип поиска не определен, ищем во всех данных
+                    results = [
+                        ...clientsData.filter(client => 
+                            Object.values(client).some(value => 
+                                value.toString().toLowerCase().includes(query.toLowerCase())
+                            )
+                        ),
+                        ...stockData.filter(item => 
+                            Object.values(item).some(value => 
+                                value.toString().toLowerCase().includes(query.toLowerCase())
+                            )
+                        ),
+                        ...dealsData.filter(deal => 
+                            Object.values(deal).some(value => 
+                                value.toString().toLowerCase().includes(query.toLowerCase())
+                            )
+                        )
+                    ];
+                    title = 'Результаты поиска';
+            }
+            
+            return { results, title };
+        }
+
+        // Функция для отображения результатов поиска
+        function displaySearchResults(results, title, query) {
+            if (results.length === 0) {
+                return `
+                    <h3>${title}</h3>
+                    <p>По запросу "<strong>${query}</strong>" ничего не найдено.</p>
+                    <div class="no-results">
+                        <p>Попробуйте изменить запрос или использовать другие критерии поиска</p>
+                    </div>
+                `;
+            }
+            
+            let html = `
+                <h3>${title}</h3>
+                <p>По запросу "<strong>${query}</strong>" найдено ${results.length} записей:</p>
+            `;
+            
+            // Отображаем результаты в виде карточек
+            results.forEach(item => {
+                // Определяем тип элемента для правильного отображения
+                let type = '';
+                let details = '';
+                
+                if (item.company) {
+                    // Это клиент
+                    type = 'Клиент';
+                    details = `
+                        <div class="search-result-details">
+                            <strong>Компания:</strong> ${item.company}<br>
+                            <strong>Телефон:</strong> ${item.phone}<br>
+                            <strong>Регион:</strong> ${item.region}
+                        </div>
+                    `;
+                } else if (item.category) {
+                    // Это товар
+                    type = 'Товар';
+                    details = `
+                        <div class="search-result-details">
+                            <strong>Категория:</strong> ${item.category}<br>
+                            <strong>Количество:</strong> ${item.quantity} шт.<br>
+                            <strong>Цена:</strong> ${item.price.toLocaleString()} руб.
+                        </div>
+                    `;
+                } else if (item.client) {
+                    // Это сделка
+                    type = 'Сделка';
+                    details = `
+                        <div class="search-result-details">
+                            <strong>Клиент:</strong> ${item.client}<br>
+                            <strong>Сумма:</strong> ${item.amount.toLocaleString()} руб.<br>
+                            <strong>Дата:</strong> ${item.date}<br>
+                            <strong>Статус:</strong> ${item.status}
+                        </div>
+                    `;
+                }
+                
+                html += `
+                    <div class="search-result-item">
+                        <div class="search-result-title">${type}: ${item.name}</div>
+                        ${details}
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
+
+        // Функция для сортировки таблиц
+        function sortTable(tableId, columnIndex, isNumeric = false, isDate = false) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const header = table.querySelectorAll('th')[columnIndex];
+            const isAscending = header.classList.contains('sorted-desc');
+            
+            // Сбрасываем классы сортировки у всех заголовков
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sorted-asc', 'sorted-desc');
+            });
+            
+            // Устанавливаем класс для текущего заголовка
+            header.classList.add(isAscending ? 'sorted-asc' : 'sorted-desc');
+            
+            // Сортируем строки
+            rows.sort((a, b) => {
+                let aValue = a.cells[columnIndex].textContent.trim();
+                let bValue = b.cells[columnIndex].textContent.trim();
+                
+                if (isNumeric) {
+                    aValue = parseFloat(aValue.replace(/\s/g, ''));
+                    bValue = parseFloat(bValue.replace(/\s/g, ''));
+                } else if (isDate) {
+                    aValue = new Date(aValue.split('.').reverse().join('-'));
+                    bValue = new Date(bValue.split('.').reverse().join('-'));
+                }
+                
+                if (aValue < bValue) return isAscending ? 1 : -1;
+                if (aValue > bValue) return isAscending ? -1 : 1;
+                return 0;
+            });
+            
+            // Перезаписываем строки в отсортированном порядке
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Функция для создания таблицы с данными
+        function createTable(data, columns, tableId, sortConfig = {}) {
+            let html = `<table class="data-table" id="${tableId}">`;
+            
+            // Заголовок таблицы
+            html += '<thead><tr>';
+            columns.forEach((col, index) => {
+                const sortable = sortConfig[index] ? ' onclick="sortTable(\'' + tableId + '\', ' + index + ', ' + 
+                    (sortConfig[index].numeric || false) + ', ' + (sortConfig[index].date || false) + ')"' : '';
+                html += `<th${sortable}>${col}</th>`;
+            });
+            html += '</tr></thead>';
+            
+            // Тело таблицы
+            html += '<tbody>';
+            data.forEach(item => {
+                html += '<tr>';
+                columns.forEach(col => {
+                    const key = Object.keys(item).find(k => 
+                        item[k] && item[k].toString().toLowerCase().includes(col.toLowerCase())
+                    ) || Object.keys(item)[0];
+                    html += `<td>${item[key]}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            
+            return html;
+        }
+
+        // Функция для показа списка шаблонов
+        function showTemplatesList() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            
+            dynamicContent.innerHTML = `
+                <h3>Шаблоны сделок</h3>
+                <table class="data-table" id="templates-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('templates-table', 0)">Название</th>
+                            <th onclick="sortTable('templates-table', 1)">Описание</th>
+                            <th>Документы</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${templatesData.map(template => `
+                            <tr>
+                                <td>${template.name}</td>
+                                <td>${template.description}</td>
+                                <td>${template.items.join(', ')}</td>
+                                <td>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;" onclick="useTemplate(${template.id})">Использовать</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px;">
+                    <button class="btn" onclick="showNewTemplateForm()">Создать новый шаблон</button>
+                </div>
+            `;
+        }
+
+        // Функция для использования шаблона
+        function useTemplate(templateId) {
+            const template = templatesData.find(t => t.id === templateId);
+            alert(`Шаблон "${template.name}" выбран! Переход к созданию сделки...`);
+            showTemplateDealForm();
+            
+            // Автоматически выбираем этот шаблон в форме
+            setTimeout(() => {
+                const select = document.getElementById('template-select');
+                if (select) {
+                    select.value = templateId;
+                    select.dispatchEvent(new Event('change'));
+                }
+            }, 100);
+        }
+
+        // Функция для показа формы создания шаблона
+        function showNewTemplateForm() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            
+            dynamicContent.innerHTML = `
+                <h3>Создание шаблона сделки</h3>
+                <form id="template-form" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Название шаблона:</label>
+                        <input type="text" class="form-control" id="template-name" placeholder="Введите название шаблона" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Описание шаблона:</label>
+                        <textarea class="form-control" id="template-description" rows="3" placeholder="Введите описание шаблона"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Тип сделки:</label>
+                        <select class="form-control" id="template-type">
+                            <option value="supply">Поставка товаров</option>
+                            <option value="service">Оказание услуг</option>
+                            <option value="complex">Комплексная сделка</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Документы в шаблоне:</label>
+                        <div>
+                            <label><input type="checkbox" name="template-docs" value="contract"> Договор</label><br>
+                            <label><input type="checkbox" name="template-docs" value="invoice"> Счет на оплату</label><br>
+                            <label><input type="checkbox" name="template-docs" value="act"> Акт выполненных работ</label><br>
+                            <label><input type="checkbox" name="template-docs" value="specification"> Спецификация</label><br>
+                            <label><input type="checkbox" name="template-docs" value="additional"> Дополнительное соглашение</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Условия оплаты:</label>
+                        <select class="form-control" id="payment-terms">
+                            <option value="prepay">100% предоплата</option>
+                            <option value="partial">50% предоплата, 50% по факту</option>
+                            <option value="postpay">Оплата по факту выполнения</option>
+                            <option value="installment">Рассрочка платежа</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Создать шаблон</button>
+                        <button type="button" class="btn btn-secondary" onclick="showTemplatesList()">Отмена</button>
+                    </div>
+                </form>
+            `;
+            
+            // Обработка отправки формы шаблона
+            document.getElementById('template-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('template-name').value;
+                const description = document.getElementById('template-description').value;
+                
+                alert(`Шаблон "${name}" успешно создан!`);
+                showTemplatesList();
+            });
+        }
+
+        // Функция для показа формы создания сделки по шаблону
+        function showTemplateDealForm() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            dynamicContent.innerHTML = `
+                <h3>Создание сделки по шаблону</h3>
+                <div class="form-group">
+                    <label class="form-label">Выберите шаблон:</label>
+                    <select class="form-control" id="template-select">
+                        <option value="">-- Выберите шаблон --</option>
+                        ${templatesData.map(template => `<option value="${template.id}">${template.name}</option>`).join('')}
+                    </select>
+                </div>
+                <div id="template-details" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px;"></div>
+                <div class="form-actions" style="margin-top: 20px;">
+                    <button type="button" class="btn" id="create-from-template" disabled>Создать сделку</button>
+                    <button type="button" class="btn btn-secondary" onclick="showTemplatesList()">Отмена</button>
+                </div>
+            `;
+            
+            // Обработка выбора шаблона
+            document.getElementById('template-select').addEventListener('change', function() {
+                const templateId = this.value;
+                const detailsContainer = document.getElementById('template-details');
+                const createButton = document.getElementById('create-from-template');
+                
+                if (templateId) {
+                    const template = templatesData.find(t => t.id == templateId);
+                    detailsContainer.innerHTML = `
+                        <h4>${template.name}</h4>
+                        <p>${template.description}</p>
+                        <p><strong>Документы в шаблоне:</strong> ${template.items.join(', ')}</p>
+                    `;
+                    detailsContainer.style.display = 'block';
+                    createButton.disabled = false;
+                } else {
+                    detailsContainer.style.display = 'none';
+                    createButton.disabled = true;
+                }
+            });
+            
+            // Обработка создания сделки из шаблона
+            document.getElementById('create-from-template').addEventListener('click', function() {
+                const templateId = document.getElementById('template-select').value;
+                const template = templatesData.find(t => t.id == templateId);
+                alert(`Сделка успешно создана из шаблона "${template.name}"!`);
+                showNewDealForm();
+            });
+        }
+
+        // Функция для показа формы создания новой сделки
+        function showNewDealForm() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            dynamicContent.innerHTML = `
+                <h3>Создание новой сделки</h3>
+                <form style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Название сделки:</label>
+                        <input type="text" class="form-control" placeholder="Введите название сделки">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Клиент:</label>
+                        <select class="form-control">
+                            <option>Выберите клиента</option>
+                            ${clientsData.map(client => `<option value="${client.id}">${client.company} (${client.name})</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Сумма сделки:</label>
+                        <input type="number" class="form-control" placeholder="Введите сумму">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Дата заключения:</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Создать сделку</button>
+                        <button type="button" class="btn btn-secondary">Отмена</button>
+                    </div>
+                </form>
+            `;
+        }
+
+        // Функция для показа всех товаров на складе
+        function showAllStock() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            dynamicContent.innerHTML = `
+                <h3>Все товары на складе</h3>
+                ${createTable(stockData, ['Название', 'Категория', 'Количество', 'Цена'], 'stock-table', {
+                    0: {}, // Название - текстовая сортировка
+                    1: {}, // Категория - текстовая сортировка
+                    2: { numeric: true }, // Количество - числовая сортировка
+                    3: { numeric: true } // Цена - числовая сортировка
+                })}
+            `;
+        }
+
+        // Функция для показа всех клиентов
+        function showAllClients() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            dynamicContent.innerHTML = `
+                <h3>Все клиенты</h3>
+                ${createTable(clientsData, ['Имя', 'Компания', 'Телефон', 'Регион'], 'clients-table', {
+                    0: {}, // Имя - текстовая сортировка
+                    1: {}, // Компания - текстовая сортировка
+                    2: {}, // Телефон - текстовая сортировка
+                    3: {} // Регион - текстовая сортировка
+                })}
+            `;
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация глобальных переменных
+            dynamicContent = document.getElementById('dynamic-content');
+            contentPlaceholder = document.getElementById('content-placeholder');
+            searchContainer = document.getElementById('search-container');
+            searchTitle = document.getElementById('search-title');
+            searchInput = document.getElementById('search-input');
+            
+            const archiveToggle = document.getElementById('archive-toggle');
+            const archiveDropdown = document.getElementById('archive-dropdown');
+            
+            let fixedDropdown = null;
+            
+            // Фиксация меню "Архив сделок" при клике
+            archiveToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Если уже зафиксировано это меню - убираем фиксацию
+                if (fixedDropdown === archiveDropdown) {
+                    archiveDropdown.classList.remove('dropdown-fixed');
+                    fixedDropdown = null;
+                } else {
+                    // Убираем фиксацию с предыдущего меню
+                    if (fixedDropdown) {
+                        fixedDropdown.classList.remove('dropdown-fixed');
+                    }
+                    
+                    // Фиксируем текущее меню
+                    archiveDropdown.classList.add('dropdown-fixed');
+                    fixedDropdown = archiveDropdown;
+                }
+            });
+            
+            // Обработка кликов по опциям в выпадающих меню
+            document.querySelectorAll('.dropdown a[data-action]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const action = this.getAttribute('data-action');
+                    let placeholderText = 'Введите запрос...';
+                    let titleText = 'Поиск';
+                    
+                    // Устанавливаем текущий тип поиска
+                    currentSearchType = action;
+                    
+                    // Устанавливаем текст в зависимости от типа действия
+                    switch(action) {
+                        case 'price-search':
+                            placeholderText = 'Введите цену или диапазон цен...';
+                            titleText = 'Поиск сделок по цене';
+                            break;
+                        case 'product-search':
+                            placeholderText = 'Введите название товара...';
+                            titleText = 'Поиск сделок по товару';
+                            break;
+                        case 'date-search':
+                            placeholderText = 'Введите дату в формате ДД.ММ.ГГГГ...';
+                            titleText = 'Поиск сделок по дате';
+                            break;
+                        case 'stock-product':
+                            placeholderText = 'Введите название товара на складе...';
+                            titleText = 'Поиск товаров на складе';
+                            break;
+                        case 'stock-category':
+                            placeholderText = 'Введите категорию товара...';
+                            titleText = 'Поиск товаров по категории';
+                            break;
+                        case 'stock-quantity':
+                            placeholderText = 'Введите количество товара...';
+                            titleText = 'Поиск товаров по количеству';
+                            break;
+                        case 'client-name':
+                            placeholderText = 'Введите имя клиента...';
+                            titleText = 'Поиск клиентов по имени';
+                            break;
+                        case 'client-company':
+                            placeholderText = 'Введите название компании...';
+                            titleText = 'Поиск клиентов по компании';
+                            break;
+                        case 'client-region':
+                            placeholderText = 'Введите регион...';
+                            titleText = 'Поиск клиентов по региону';
+                            break;
+                        case 'new-deal':
+                            showNewDealForm();
+                            return;
+                        case 'new-template':
+                            showNewTemplateForm();
+                            return;
+                        case 'template-deal':
+                            showTemplateDealForm();
+                            return;
+                        case 'stock-all':
+                            showAllStock();
+                            return;
+                        case 'client-all':
+                            showAllClients();
+                            return;
+                    }
+                    
+                    // Показываем контейнер поиска
+                    searchContainer.classList.add('active');
+                    searchTitle.textContent = titleText;
+                    searchInput.placeholder = placeholderText;
+                    searchInput.value = ''; // Очищаем поле ввода
+                    
+                    // Скрываем placeholder и показываем сообщение о готовности к поиску
+                    contentPlaceholder.style.display = 'none';
+                    dynamicContent.innerHTML = `<p>Готов к поиску. Введите запрос в поле выше и нажмите "Найти".</p>`;
+                    
+                    // Закрываем фиксированное меню после выбора опции
+                    if (fixedDropdown) {
+                        fixedDropdown.classList.remove('dropdown-fixed');
+                        fixedDropdown = null;
+                    }
+                });
+            });
+            
+            // Обработка отправки формы поиска
+            document.getElementById('search-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                
+                if (query === '') {
+                    dynamicContent.innerHTML = `<p>Пожалуйста, введите запрос для поиска.</p>`;
+                    return;
+                }
+                
+                // Выполняем поиск
+                const { results, title } = performSearch(query, currentSearchType);
+                
+                // Отображаем результаты
+                dynamicContent.innerHTML = displaySearchResults(results, title, query);
+            });
+            
+            // Закрытие фиксированного меню при клике вне его
+            document.addEventListener('click', function(e) {
+                if (fixedDropdown && !fixedDropdown.parentElement.contains(e.target)) {
+                    fixedDropdown.classList.remove('dropdown-fixed');
+                    fixedDropdown = null;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
