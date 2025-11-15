@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корпоративный портал</title>
     <style>
-        
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         * {
@@ -55,12 +54,31 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            margin-right: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .header_list {
             display: flex;
             gap: 30px;
             justify-content: space-between;
+            flex: 1;
         }
 
         .header_list li {
@@ -304,6 +322,16 @@
         }
 
         @media (max-width: 768px) {
+            .header_nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo-container {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
             .header_list {
                 flex-wrap: wrap;
                 gap: 10px;
@@ -362,6 +390,11 @@
 <body>
     <header class="header">
         <nav class="header_nav">
+            <div class="logo-container">
+                <a href="#">
+                    <img src="./img/123.png" alt="" class="logo"> 
+                </a>
+            </div>
             <ul class="header_list">
                 <li>
                     <a href="#!" class="nav-link">Контакты</a>
