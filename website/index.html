@@ -321,6 +321,194 @@
             background: #5a6268;
         }
 
+        /* Стили для калькулятора */
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calculator-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .calculator-tab {
+            padding: 12px 24px;
+            background: #f5f7fa;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #2c3e50;
+        }
+
+        .calculator-tab:hover {
+            background: #eaeef2;
+        }
+
+        .calculator-tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .calculator-content {
+            display: none;
+        }
+
+        .calculator-content.active {
+            display: block;
+        }
+
+        .calculator-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #eaeaea;
+        }
+
+        .calculator-result {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .calculator-formula {
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        .calculator-controls {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .calculator-input-group {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #eaeaea;
+        }
+
+        .calculator-input-group h4 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .calculator-input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .calculator-input-row label {
+            min-width: 120px;
+            font-weight: 500;
+        }
+
+        .calculator-input-row input,
+        .calculator-input-row select {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .calculator-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .calculator-button {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .calculator-button.secondary {
+            background: #6c757d;
+        }
+
+        .calculator-button.secondary:hover {
+            background: #5a6268;
+        }
+
+        .calculator-button.success {
+            background: #4CAF50;
+        }
+
+        .calculator-button.success:hover {
+            background: #45a049;
+        }
+
+        .calculator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .calculator-table th,
+        .calculator-table td {
+            padding: 12px;
+            border: 1px solid #eaeaea;
+            text-align: left;
+        }
+
+        .calculator-table th {
+            background: #f5f7fa;
+            font-weight: 600;
+        }
+
+        .calculator-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 500;
+        }
+
         @media (max-width: 768px) {
             .header_nav {
                 flex-direction: column;
@@ -353,6 +541,52 @@
             .data-table {
                 display: block;
                 overflow-x: auto;
+            }
+            
+            .calculator-container {
+                max-width: 100%;
+            }
+            
+            .calculator-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+            
+            .calculator-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-input-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .calculator-input-row label {
+                min-width: auto;
+                margin-bottom: 5px;
+            }
+            
+            .calculator-buttons {
+                flex-direction: column;
+            }
+            
+            .calculator-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calculator-display {
+                padding: 15px;
+            }
+            
+            .calculator-result {
+                font-size: 1.5rem;
+            }
+            
+            .calculator-input-group {
+                padding: 15px;
             }
         }
 
@@ -412,6 +646,12 @@
                         <li><a href="#!" data-action="new-deal">Создать новую сделку</a></li>
                         <li><a href="#!" data-action="new-template">Создать шаблон сделки</a></li>
                         <li><a href="#!" data-action="template-deal">Создать сделку по шаблону</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" class="nav-link">Калькулятор</a>
+                    <ul class="dropdown">
+                        <li><a href="#!" data-action="open-calculator">Открыть калькулятор</a></li>
                     </ul>
                 </li>
                 <li>
@@ -506,6 +746,10 @@
         // Глобальные переменные
         let dynamicContent, contentPlaceholder, searchContainer, searchTitle, searchInput;
         let currentSearchType = '';
+        
+        // Данные для калькулятора
+        let calculatorItems = [];
+        let calculatorHistory = [];
 
         // Функция для выполнения поиска
         function performSearch(query, searchType) {
@@ -934,6 +1178,491 @@
                 })}
             `;
         }
+        
+        // Функция для показа калькулятора
+        function showCalculator() {
+            searchContainer.classList.remove('active');
+            contentPlaceholder.style.display = 'none';
+            
+            dynamicContent.innerHTML = `
+                <h3>Калькулятор для бизнес-расчетов</h3>
+                <div class="calculator-container">
+                    <div class="calculator-tabs">
+                        <button class="calculator-tab active" onclick="switchCalculatorTab('deal')">Расчет сделки</button>
+                        <button class="calculator-tab" onclick="switchCalculatorTab('discount')">Скидки и налоги</button>
+                        <button class="calculator-tab" onclick="switchCalculatorTab('profit')">Анализ прибыли</button>
+                        <button class="calculator-tab" onclick="switchCalculatorTab('stock')">Расчет стоимости товаров</button>
+                    </div>
+                    
+                    <!-- Таб "Расчет сделки" -->
+                    <div id="calculator-deal" class="calculator-content active">
+                        <div class="calculator-display">
+                            <div class="calculator-result" id="deal-result">0 руб.</div>
+                            <div class="calculator-formula" id="deal-formula"></div>
+                        </div>
+                        
+                        <div class="calculator-controls">
+                            <div class="calculator-input-group">
+                                <h4>Основные параметры</h4>
+                                <div class="calculator-input-row">
+                                    <label>Выберите клиента:</label>
+                                    <select id="client-select">
+                                        <option value="">Выберите клиента</option>
+                                        ${clientsData.map(client => `<option value="${client.id}">${client.company} - ${client.name}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Количество товаров:</label>
+                                    <input type="number" id="product-count" value="1" min="1">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Базовая стоимость:</label>
+                                    <input type="number" id="base-price" value="10000" min="0">
+                                </div>
+                                <div class="calculator-buttons">
+                                    <button class="calculator-button" onclick="calculateDeal()">Рассчитать сделку</button>
+                                    <button class="calculator-button secondary" onclick="clearDeal()">Очистить</button>
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-input-group">
+                                <h4>Дополнительные параметры</h4>
+                                <div class="calculator-input-row">
+                                    <label>Скидка (%):</label>
+                                    <input type="number" id="discount-percent" value="0" min="0" max="100">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>НДС (%):</label>
+                                    <select id="vat-rate">
+                                        <option value="0">Без НДС</option>
+                                        <option value="10" selected>10%</option>
+                                        <option value="20">20%</option>
+                                    </select>
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Доп. расходы:</label>
+                                    <input type="number" id="additional-costs" value="0" min="0">
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Итоговая сумма:</span>
+                                    <span class="summary-value" id="total-sum">0 руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="deal-history" style="margin-top: 30px; display: none;">
+                            <h4>История расчетов</h4>
+                            <table class="calculator-table">
+                                <thead>
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Клиент</th>
+                                        <th>Сумма</th>
+                                        <th>Результат</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deal-history-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Таб "Скидки и налоги" -->
+                    <div id="calculator-discount" class="calculator-content">
+                        <div class="calculator-display">
+                            <div class="calculator-result" id="discount-result">0 руб.</div>
+                            <div class="calculator-formula" id="discount-formula"></div>
+                        </div>
+                        
+                        <div class="calculator-controls">
+                            <div class="calculator-input-group">
+                                <h4>Параметры расчета</h4>
+                                <div class="calculator-input-row">
+                                    <label>Исходная цена:</label>
+                                    <input type="number" id="original-price" value="10000" min="0">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Скидка (%):</label>
+                                    <input type="number" id="discount-calc" value="10" min="0" max="100">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Налог (%):</label>
+                                    <input type="number" id="tax-rate" value="20" min="0" max="100">
+                                </div>
+                                <div class="calculator-buttons">
+                                    <button class="calculator-button" onclick="calculateDiscount()">Рассчитать</button>
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-input-group">
+                                <h4>Результаты</h4>
+                                <div class="summary-item">
+                                    <span class="summary-label">Сумма скидки:</span>
+                                    <span class="summary-value" id="discount-amount">0 руб.</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Цена со скидкой:</span>
+                                    <span class="summary-value" id="price-with-discount">0 руб.</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Сумма налога:</span>
+                                    <span class="summary-value" id="tax-amount">0 руб.</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Итоговая цена:</span>
+                                    <span class="summary-value" id="final-price">0 руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Таб "Анализ прибыли" -->
+                    <div id="calculator-profit" class="calculator-content">
+                        <div class="calculator-display">
+                            <div class="calculator-result" id="profit-result">0 руб.</div>
+                            <div class="calculator-formula" id="profit-formula"></div>
+                        </div>
+                        
+                        <div class="calculator-controls">
+                            <div class="calculator-input-group">
+                                <h4>Параметры сделки</h4>
+                                <div class="calculator-input-row">
+                                    <label>Выручка:</label>
+                                    <input type="number" id="revenue" value="100000" min="0">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Себестоимость:</label>
+                                    <input type="number" id="cost-price" value="60000" min="0">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Операционные расходы:</label>
+                                    <input type="number" id="operating-costs" value="20000" min="0">
+                                </div>
+                                <div class="calculator-buttons">
+                                    <button class="calculator-button" onclick="calculateProfit()">Рассчитать прибыль</button>
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-input-group">
+                                <h4>Результаты анализа</h4>
+                                <div class="summary-item">
+                                    <span class="summary-label">Валовая прибыль:</span>
+                                    <span class="summary-value" id="gross-profit">0 руб.</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Чистая прибыль:</span>
+                                    <span class="summary-value" id="net-profit">0 руб.</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Рентабельность (%):</span>
+                                    <span class="summary-value" id="profitability">0%</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Маржа прибыли:</span>
+                                    <span class="summary-value" id="profit-margin">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Таб "Расчет стоимости товаров" -->
+                    <div id="calculator-stock" class="calculator-content">
+                        <div class="calculator-display">
+                            <div class="calculator-result" id="stock-result">0 руб.</div>
+                            <div class="calculator-formula" id="stock-formula"></div>
+                        </div>
+                        
+                        <div class="calculator-controls">
+                            <div class="calculator-input-group">
+                                <h4>Выбор товаров</h4>
+                                <div class="calculator-input-row">
+                                    <label>Выберите товар:</label>
+                                    <select id="stock-select" onchange="updateStockInfo()">
+                                        <option value="">Выберите товар</option>
+                                        ${stockData.map(item => `<option value="${item.id}">${item.name} (${item.price.toLocaleString()} руб.)</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Количество:</label>
+                                    <input type="number" id="stock-quantity" value="1" min="1" max="1000">
+                                </div>
+                                <div class="calculator-input-row">
+                                    <label>Цена за единицу:</label>
+                                    <input type="number" id="stock-price" value="0" min="0">
+                                </div>
+                                <div class="calculator-buttons">
+                                    <button class="calculator-button success" onclick="addStockItem()">Добавить в расчет</button>
+                                    <button class="calculator-button secondary" onclick="clearStockItems()">Очистить список</button>
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-input-group">
+                                <h4>Список товаров</h4>
+                                <div style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
+                                    <table class="calculator-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <th>Кол-во</th>
+                                                <th>Цена</th>
+                                                <th>Сумма</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stock-items-list"></tbody>
+                                    </table>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Итого товаров:</span>
+                                    <span class="summary-value" id="total-items">0</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Общая стоимость:</span>
+                                    <span class="summary-value" id="total-stock-cost">0 руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Инициализация данных калькулятора
+            calculatorItems = [];
+            updateStockItemsList();
+        }
+        
+        // Функция переключения вкладок калькулятора
+        function switchCalculatorTab(tabName) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.calculator-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс со всех кнопок
+            document.querySelectorAll('.calculator-tab').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Показываем выбранную вкладку
+            document.getElementById(`calculator-${tabName}`).classList.add('active');
+            
+            // Активируем соответствующую кнопку
+            event.target.classList.add('active');
+        }
+        
+        // Функция расчета сделки
+        function calculateDeal() {
+            const productCount = parseInt(document.getElementById('product-count').value) || 1;
+            const basePrice = parseFloat(document.getElementById('base-price').value) || 0;
+            const discountPercent = parseFloat(document.getElementById('discount-percent').value) || 0;
+            const vatRate = parseFloat(document.getElementById('vat-rate').value) || 0;
+            const additionalCosts = parseFloat(document.getElementById('additional-costs').value) || 0;
+            
+            // Рассчеты
+            const subtotal = basePrice * productCount;
+            const discountAmount = subtotal * (discountPercent / 100);
+            const priceAfterDiscount = subtotal - discountAmount;
+            const vatAmount = vatRate ? priceAfterDiscount * (vatRate / 100) : 0;
+            const total = priceAfterDiscount + vatAmount + additionalCosts;
+            
+            // Обновление отображения
+            document.getElementById('deal-result').textContent = total.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('deal-formula').textContent = 
+                `${basePrice} × ${productCount} - ${discountPercent}% + НДС ${vatRate}% + ${additionalCosts}`;
+            
+            document.getElementById('total-sum').textContent = total.toLocaleString('ru-RU') + ' руб.';
+            
+            // Добавление в историю
+            const clientSelect = document.getElementById('client-select');
+            const clientName = clientSelect.options[clientSelect.selectedIndex].text || 'Не выбран';
+            
+            const historyItem = {
+                date: new Date().toLocaleString('ru-RU'),
+                client: clientName,
+                amount: basePrice * productCount,
+                result: total
+            };
+            
+            calculatorHistory.unshift(historyItem);
+            updateDealHistory();
+        }
+        
+        // Очистка формы расчета сделки
+        function clearDeal() {
+            document.getElementById('product-count').value = 1;
+            document.getElementById('base-price').value = 10000;
+            document.getElementById('discount-percent').value = 0;
+            document.getElementById('additional-costs').value = 0;
+            document.getElementById('deal-result').textContent = '0 руб.';
+            document.getElementById('deal-formula').textContent = '';
+            document.getElementById('total-sum').textContent = '0 руб.';
+        }
+        
+        // Обновление истории расчетов сделок
+        function updateDealHistory() {
+            const historyBody = document.getElementById('deal-history-body');
+            const historyContainer = document.getElementById('deal-history');
+            
+            if (!historyBody) return;
+            
+            if (calculatorHistory.length > 0) {
+                historyContainer.style.display = 'block';
+                historyBody.innerHTML = calculatorHistory.slice(0, 5).map(item => `
+                    <tr>
+                        <td>${item.date}</td>
+                        <td>${item.client}</td>
+                        <td>${item.amount.toLocaleString('ru-RU')} руб.</td>
+                        <td>${item.result.toLocaleString('ru-RU')} руб.</td>
+                    </tr>
+                `).join('');
+            } else {
+                historyContainer.style.display = 'none';
+            }
+        }
+        
+        // Расчет скидок и налогов
+        function calculateDiscount() {
+            const originalPrice = parseFloat(document.getElementById('original-price').value) || 0;
+            const discountPercent = parseFloat(document.getElementById('discount-calc').value) || 0;
+            const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+            
+            // Рассчеты
+            const discountAmount = originalPrice * (discountPercent / 100);
+            const priceWithDiscount = originalPrice - discountAmount;
+            const taxAmount = priceWithDiscount * (taxRate / 100);
+            const finalPrice = priceWithDiscount + taxAmount;
+            
+            // Обновление отображения
+            document.getElementById('discount-result').textContent = finalPrice.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('discount-formula').textContent = 
+                `${originalPrice} - ${discountPercent}% + налог ${taxRate}%`;
+            
+            document.getElementById('discount-amount').textContent = discountAmount.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('price-with-discount').textContent = priceWithDiscount.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('tax-amount').textContent = taxAmount.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('final-price').textContent = finalPrice.toLocaleString('ru-RU') + ' руб.';
+        }
+        
+        // Расчет прибыли
+        function calculateProfit() {
+            const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+            const costPrice = parseFloat(document.getElementById('cost-price').value) || 0;
+            const operatingCosts = parseFloat(document.getElementById('operating-costs').value) || 0;
+            
+            // Рассчеты
+            const grossProfit = revenue - costPrice;
+            const netProfit = grossProfit - operatingCosts;
+            const profitability = costPrice > 0 ? (grossProfit / costPrice * 100) : 0;
+            const profitMargin = revenue > 0 ? (netProfit / revenue * 100) : 0;
+            
+            // Обновление отображения
+            document.getElementById('profit-result').textContent = netProfit.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('profit-formula').textContent = 
+                `Выручка (${revenue}) - Себестоимость (${costPrice}) - Расходы (${operatingCosts})`;
+            
+            document.getElementById('gross-profit').textContent = grossProfit.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('net-profit').textContent = netProfit.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('profitability').textContent = profitability.toFixed(2) + '%';
+            document.getElementById('profit-margin').textContent = profitMargin.toFixed(2) + '%';
+        }
+        
+        // Обновление информации о товаре при выборе
+        function updateStockInfo() {
+            const stockSelect = document.getElementById('stock-select');
+            const itemId = parseInt(stockSelect.value);
+            
+            if (!itemId) return;
+            
+            const item = stockData.find(i => i.id === itemId);
+            if (item) {
+                document.getElementById('stock-price').value = item.price;
+                document.getElementById('stock-quantity').max = item.quantity;
+            }
+        }
+        
+        // Добавление товара в расчет
+        function addStockItem() {
+            const stockSelect = document.getElementById('stock-select');
+            const itemId = parseInt(stockSelect.value);
+            const quantity = parseInt(document.getElementById('stock-quantity').value) || 1;
+            const price = parseFloat(document.getElementById('stock-price').value) || 0;
+            
+            if (!itemId || price <= 0 || quantity <= 0) {
+                alert('Пожалуйста, выберите товар и укажите корректные данные');
+                return;
+            }
+            
+            const item = stockData.find(i => i.id === itemId);
+            if (!item) return;
+            
+            // Проверка наличия на складе
+            if (quantity > item.quantity) {
+                alert(`На складе доступно только ${item.quantity} единиц товара "${item.name}"`);
+                return;
+            }
+            
+            // Добавление товара
+            calculatorItems.push({
+                id: itemId,
+                name: item.name,
+                quantity: quantity,
+                price: price,
+                total: price * quantity
+            });
+            
+            updateStockItemsList();
+            calculateStockTotal();
+            
+            // Сброс формы
+            document.getElementById('stock-quantity').value = 1;
+        }
+        
+        // Обновление списка товаров
+        function updateStockItemsList() {
+            const itemsList = document.getElementById('stock-items-list');
+            if (!itemsList) return;
+            
+            itemsList.innerHTML = calculatorItems.map((item, index) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price.toLocaleString('ru-RU')} руб.</td>
+                    <td>${item.total.toLocaleString('ru-RU')} руб.</td>
+                    <td>
+                        <button onclick="removeStockItem(${index})" style="background: #f44336; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">
+                            Удалить
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('total-items').textContent = calculatorItems.length;
+        }
+        
+        // Удаление товара из списка
+        function removeStockItem(index) {
+            calculatorItems.splice(index, 1);
+            updateStockItemsList();
+            calculateStockTotal();
+        }
+        
+        // Расчет общей стоимости товаров
+        function calculateStockTotal() {
+            const totalCost = calculatorItems.reduce((sum, item) => sum + item.total, 0);
+            const totalQuantity = calculatorItems.reduce((sum, item) => sum + item.quantity, 0);
+            
+            document.getElementById('stock-result').textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+            document.getElementById('stock-formula').textContent = 
+                `Итого: ${calculatorItems.length} товаров, ${totalQuantity} единиц`;
+            
+            document.getElementById('total-stock-cost').textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+        }
+        
+        // Очистка списка товаров
+        function clearStockItems() {
+            calculatorItems = [];
+            updateStockItemsList();
+            calculateStockTotal();
+        }
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
@@ -1019,6 +1748,9 @@
                             placeholderText = 'Введите регион...';
                             titleText = 'Поиск клиентов по региону';
                             break;
+                        case 'open-calculator':
+                            showCalculator();
+                            return;
                         case 'new-deal':
                             showNewDealForm();
                             return;
